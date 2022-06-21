@@ -1,0 +1,59 @@
+<div *ngIf="livros$ | async as livros; else errorScreen">
+  <div class="po-sm-12 po-md-12 po-font-display po-text-center po-pb-4">
+    Cadastro de Livros
+  </div>
+  <div class="po-row">
+    <div class="po-xl-6 po-lg-8 po-md-12 po-sm-12">
+      <po-input
+        [(ngModel)]="filtro"
+        p-placeholder="Digite o título do livro"
+        p-icon="po-icon-search"
+        p-clean
+      >
+      </po-input>
+    </div>
+    <div class="po-xl-6 po-lg-4 po-md-12 po-sm-12 po-pt-xl-1 po-pt-lg-1 po-pt-md-2 po-pt-sm-2 po-text-right">
+      <po-button
+        p-label="Novo Livro"
+        p-icon="po-icon-plus-circle"
+        p-kind="primary"
+        (p-click)="cadastrar()"
+      >
+      </po-button>
+    </div>
+  </div>
+  <div class="po-pt-1"></div>
+  <div class="po-md-12 po-sm-12">
+    <po-table
+      #tabela
+      [p-columns]="columns"
+      [p-items]="dados(livros)"
+      [p-sort]="true"
+      [p-literals]="literals"
+      [p-actions]="actions"
+      [p-actions-right]="true"
+      p-container="border"
+      [p-striped]="true"
+    >
+    </po-table>
+  </div>
+</div>
+
+<modal-exclusao
+  #modal
+  (evento)="deletar($event)"
+>
+</modal-exclusao>
+
+<ng-template #errorScreen>
+  <div *ngIf="error | async; else loadingScreen"></div>
+</ng-template>
+
+<ng-template #loadingScreen>
+  <po-loading-overlay
+    [p-screen-lock]="true"
+    p-text="Carregando..."
+  >
+  </po-loading-overlay>
+</ng-template>
+

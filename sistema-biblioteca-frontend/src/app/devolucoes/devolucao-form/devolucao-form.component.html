@@ -1,0 +1,56 @@
+<div class="po-font-title">
+  {{ tipoForm }} Devolução
+</div>
+<form [formGroup]="form" class="po-pt-3">
+  <div class="po-row">
+    <po-combo
+      class="po-md-12 po-sm-12"
+      formControlName="emprestimo"
+      p-label="Empréstimo"
+      p-help="Pesquisar pelo nome do cliente"
+      p-icon="po-icon-bar-code"
+      [p-options]="opcoesInputEmprestimo"
+      [p-literals]="literals"
+      [p-clean]="true"
+    >
+      <ng-template p-combo-option-template let-option>
+        <div class="po-row">
+          <div class="po-sm-10 po-md-9 po-lg-11">
+            <div class="po-font-text-large-bold">Código {{ option.value }}</div>
+            <div class="po-font-text-smaller">Cliente: {{ option.label }}</div>
+          </div>
+        </div>
+      </ng-template>
+    </po-combo>
+  </div>
+  <div class="po-row">
+    <po-datepicker
+      class="po-xl-6 po-md-12 po-sm-12"
+      formControlName="dataDevolucao"
+      p-label="Data de Devolução"
+      p-error-pattern="Data inválida"
+    >
+    </po-datepicker>
+  </div>
+</form>
+<div class="po-md-12 po-sm-12 po-pt-4 po-pb-1 po-text-right">
+  <po-button
+    p-label="Cancelar"
+    p-kind="secondary"
+    [p-danger]="true"
+    p-icon="po-icon-close"
+    (p-click)="cancelar()"
+  >
+  </po-button>
+  <po-button
+    class="po-pl-1"
+    p-label="Salvar"
+    p-kind="secondary"
+    p-icon="po-icon-ok"
+    (p-click)="salvar()"
+    [p-disabled]="!this.form.valid"
+  >
+  </po-button>
+</div>
+
+<!--<po-button p-label="LOG" (p-click)="log()"></po-button>-->

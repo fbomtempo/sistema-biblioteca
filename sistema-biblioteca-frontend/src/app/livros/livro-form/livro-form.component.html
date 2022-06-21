@@ -1,0 +1,70 @@
+<div class="po-font-title">
+  {{ tipoForm }} Livro
+</div>
+<form [formGroup]="form" class="po-pt-3">
+  <div class="po-row">
+    <po-input
+      class="po-md-12 po-sm-12"
+      formControlName="titulo"
+      p-label="Título"
+      p-icon="po-icon-book"
+      p-error-pattern="Campo inválido"
+      p-clean
+    >
+    </po-input>
+  </div>
+  <div class="po-row">
+    <po-input
+      class="po-md-12 po-sm-12"
+      formControlName="autor"
+      p-label="Autor"
+      p-icon="po-icon-edit"
+      p-error-pattern="Campo inválido"
+      p-clean
+    >
+    </po-input>
+  </div>
+  <div class="po-row">
+    <div class="po-lg-8 po-md-12 po-sm-12">
+      <po-input
+        formControlName="editora"
+        p-label="Editora"
+        p-icon="po-icon-align-right"
+        p-error-pattern="Campo inválido"
+        p-clean
+      >
+      </po-input>
+    </div>
+    <div class="po-lg-4 po-md-12 po-sm-12">
+      <po-input
+        formControlName="ano"
+        p-label="Ano"
+        p-mask="9999"
+        p-icon="po-icon-calendar"
+        p-error-pattern="Campo inválido"
+        [p-optional]="true"
+        p-clean
+      >
+      </po-input>
+    </div>
+  </div>
+</form>
+<div class="po-md-12 po-sm-12 po-pt-4 po-pb-1 po-text-right">
+  <po-button
+    p-label="Cancelar"
+    p-kind="secondary"
+    [p-danger]="true"
+    p-icon="po-icon-close"
+    (p-click)="cancelar()"
+  >
+  </po-button>
+  <po-button
+    class="po-pl-1"
+    p-label="Salvar"
+    p-kind="secondary"
+    p-icon="po-icon-ok"
+    (p-click)="salvar()"
+    [p-disabled]="!this.form.valid"
+  >
+  </po-button>
+</div>

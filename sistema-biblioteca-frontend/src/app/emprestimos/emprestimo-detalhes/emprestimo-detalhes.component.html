@@ -1,0 +1,54 @@
+<po-widget>
+  <div class="po-font-title">
+    Visualizar Empréstimo
+  </div>
+  <hr />
+  <dl class="po-row po-font-text-large">
+    <dt class="po-sm-2">
+      <strong>Código:</strong>
+    </dt>
+    <dd class="po-sm-10">
+      {{ emprestimo.id }}
+    </dd>
+    <dt class="po-sm-2 po-pt-1">
+      <strong>Cliente:</strong>
+    </dt>
+    <dd class="po-sm-10 po-pt-1">
+      {{ emprestimo.cliente.nome + ' | CPF ' + emprestimo.cliente.cpf }}
+    </dd>
+    <dt class="po-sm-2 po-pt-1">
+      <strong>Livro:</strong>
+    </dt>
+    <dd class="po-sm-10 po-pt-1">
+      {{ emprestimo.livro.titulo }}
+    </dd>
+    <dt class="po-sm-2 po-pt-1">
+      <strong>Data de Empréstimo:</strong>
+    </dt>
+    <dd class="po-sm-10 po-pt-1">
+      {{ emprestimo.dataEmprestimo }}
+    </dd>
+    <dt class="po-sm-2 po-pt-1">
+      <strong>Data de Devolução:</strong>
+    </dt>
+    <dd class="po-sm-10 po-pt-1">
+      {{ emprestimo.dataDevolucao }}
+    </dd>
+    <dt class="po-sm-2 po-pt-1">
+      <strong>Situação:</strong>
+    </dt>
+    <dd class="po-sm-10 po-pt-1">
+      <div [ngClass]="aplicarEstilo()">
+        <strong>{{ emprestimo.situacaoEmprestimo }}</strong>
+      </div>
+    </dd>
+  </dl>
+  <div class="po-pt-3 po-row">
+    <div class="po-md-12 po-sm-12 po-text-right">
+      <po-button p-label="Voltar" [p-danger]="true" p-kind="secondary" (p-click)="voltar()">
+      </po-button>
+      <po-button class="po-pl-1" p-label="Editar" p-kind="secondary" (p-click)="alterar()">
+      </po-button>
+    </div>
+  </div>
+</po-widget>

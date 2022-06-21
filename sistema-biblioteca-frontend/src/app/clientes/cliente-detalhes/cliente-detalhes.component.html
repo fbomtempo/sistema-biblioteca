@@ -1,0 +1,46 @@
+<po-widget>
+  <div class="po-font-title">
+    Visualizar Cliente
+  </div>
+  <hr />
+  <dl class="po-row po-font-text-large">
+    <dt class="po-sm-2">
+      <strong>Código:</strong>
+    </dt>
+    <dd class="po-sm-10">
+      {{ cliente.id }}
+    </dd>
+    <dt class="po-sm-2 po-pt-1">
+      <strong>Nome:</strong>
+    </dt>
+    <dd class="po-sm-10 po-pt-1">
+      {{ cliente.nome }}
+    </dd>
+    <dt class="po-sm-2 po-pt-1">
+      <strong>E-Mail:</strong>
+    </dt>
+    <dd class="po-sm-10 po-pt-1">
+      {{ cliente.email }}
+    </dd>
+    <dt class="po-sm-2 po-pt-1">
+      <strong>CPF:</strong>
+    </dt>
+    <dd class="po-sm-10 po-pt-1">
+      {{ cliente.cpf }}
+    </dd>
+    <dt class="po-sm-2 po-pt-1">
+      <strong>Telefone:</strong>
+    </dt>
+    <dd class="po-sm-10 po-pt-1">
+      {{ cliente.telefone }}
+    </dd>
+  </dl>
+  <div class="po-pt-3 po-row">
+    <div class="po-md-12 po-sm-12 po-text-right">
+      <po-button p-label="Voltar" [p-danger]="true" p-kind="secondary" (p-click)="voltar()">
+      </po-button>
+      <po-button class="po-pl-1" p-label="Editar" p-kind="secondary" (p-click)="alterar()">
+      </po-button>
+    </div>
+  </div>
+</po-widget>

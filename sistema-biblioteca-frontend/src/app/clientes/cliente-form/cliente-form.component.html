@@ -1,0 +1,98 @@
+<div class="po-font-title">
+  {{ tipoForm }} Cliente
+</div>
+<form [formGroup]="form" class="po-pt-3">
+  <div class="po-row">
+    <po-input
+      class="po-md-12 po-sm-12"
+      formControlName="nome"
+      p-label="Nome"
+      p-icon="po-icon-user"
+      p-error-pattern="Campo inválido"
+      p-clean
+    >
+    </po-input>
+  </div>
+  <div class="po-row">
+    <po-email
+      class="po-md-12 po-sm-12"
+      formControlName="email"
+      p-label="E-Mail"
+      p-icon="po-icon-mail"
+      [p-optional]="true"
+      p-error-pattern="Campo inválido"
+      p-clean
+    >
+    </po-email>
+  </div>
+  <div class="po-row">
+    <div class="po-lg-6 po-md-12 po-sm-12">
+      <po-input
+        formControlName="cpf"
+        p-label="CPF"
+        p-mask="999.999.999-99"
+        p-icon="po-icon-credit-payment"
+        p-error-pattern="Campo inválido"
+        p-clean
+      >
+      </po-input>
+    </div>
+    <div class="po-row">
+      <div class="po-xl-3 po-lg-4 po-md-8 po-sm-12">
+        <po-radio-group
+          formControlName="tipoTelefone"
+          p-label="Telefone"
+          [p-options]="[
+            { label: 'Residencial', value: 'residencial' },
+            { label: 'Celular', value: 'celular' }
+          ]"
+          (p-change)="trocarTipoTelefone($event)"
+        >
+        </po-radio-group>
+      </div>
+    </div>
+    <div class="po-row" *ngIf="tipoTelefone === 'residencial'">
+      <div class="po-lg-6 po-md-12 po-sm-12">
+        <po-input
+          formControlName="telefone"
+          p-mask="(99) 9999-9999"
+          p-icon="po-icon-telephone"
+          p-error-pattern="Campo inválido"
+          p-clean
+        >
+        </po-input>
+      </div>
+    </div>
+    <div class="po-row">
+      <div class="po-lg-6 po-md-12 po-sm-12" *ngIf="tipoTelefone === 'celular'">
+        <po-input
+          formControlName="telefone"
+          p-mask="(99) 99999-9999"
+          p-icon="po-icon-telephone"
+          p-error-pattern="Campo inválido"
+          p-clean
+        >
+        </po-input>
+      </div>
+    </div>
+  </div>
+</form>
+<div class="po-md-12 po-sm-12 po-pt-4 po-pb-1 po-text-right">
+  <po-button
+    p-label="Cancelar"
+    p-kind="secondary"
+    [p-danger]="true"
+    p-icon="po-icon-close"
+    (p-click)="cancelar()"
+  >
+  </po-button>
+  <po-button
+    class="po-pl-1"
+    p-label="Salvar"
+    p-kind="secondary"
+    p-icon="po-icon-ok"
+    (p-click)="salvar()"
+    [p-disabled]="!this.form.valid"
+  >
+  </po-button>
+</div>

@@ -1,0 +1,54 @@
+<po-widget>
+  <div class="po-font-title">
+    Visualizar Livro
+  </div>
+  <hr />
+  <dl class="po-row po-font-text-large">
+    <dt class="po-sm-2">
+      <strong>Código:</strong>
+    </dt>
+    <dd class="po-sm-10">
+      {{ livro.id }}
+    </dd>
+    <dt class="po-sm-2 po-pt-1">
+      <strong>Título:</strong>
+    </dt>
+    <dd class="po-sm-10 po-pt-1">
+      {{ livro.titulo }}
+    </dd>
+    <dt class="po-sm-2 po-pt-1">
+      <strong>Autor:</strong>
+    </dt>
+    <dd class="po-sm-10 po-pt-1">
+      {{ livro.autor }}
+    </dd>
+    <dt class="po-sm-2 po-pt-1">
+      <strong>Editora:</strong>
+    </dt>
+    <dd class="po-sm-10 po-pt-1">
+      {{ livro.editora }}
+    </dd>
+    <dt class="po-sm-2 po-pt-1">
+      <strong>Ano:</strong>
+    </dt>
+    <dd class="po-sm-10 po-pt-1">
+      {{ livro.ano }}
+    </dd>
+    <dt class="po-sm-2 po-pt-1">
+      <strong>Disponibilidade:</strong>
+    </dt>
+    <dd class="po-sm-10 po-pt-1">
+      <div [ngClass]="aplicarEstilo()">
+        <strong>{{ livro.disponibilidadeLivro }}</strong>
+      </div>
+    </dd>
+  </dl>
+  <div class="po-pt-3 po-row">
+    <div class="po-md-12 po-sm-12 po-text-right">
+      <po-button p-label="Voltar" [p-danger]="true" p-kind="secondary" (p-click)="voltar()">
+      </po-button>
+      <po-button class="po-pl-1" p-label="Editar" p-kind="secondary" (p-click)="alterar()">
+      </po-button>
+    </div>
+  </div>
+</po-widget>

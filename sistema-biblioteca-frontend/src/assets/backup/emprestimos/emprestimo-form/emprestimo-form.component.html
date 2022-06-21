@@ -1,0 +1,73 @@
+<div class="po-font-title">
+  {{ tipoForm }} Empréstimo
+</div>
+<form [formGroup]="form" class="po-pt-3">
+  <div class="po-row">
+    <po-combo
+      class="po-md-12 po-sm-12"
+      formControlName="cliente"
+      p-label="Cliente"
+      [p-options]="opcoesInputCliente"
+      p-icon="po-icon-user"
+      [p-disabled]="carregandoInputCliente"
+      p-help="Pesquisar pelo nome do cliente"
+      [p-clean]="true"
+    >
+      <ng-template p-combo-option-template let-option>
+        <option-template [option]="option">
+          {{ opcaoTemplate(option) }}
+        </option-template>
+      </ng-template>
+    </po-combo>
+  </div>
+  <div class="po-row">
+    <po-combo
+      class="po-md-12 po-sm-12"
+      formControlName="livro"
+      p-label="Livro"
+      [p-options]="opcoesInputLivro"
+      p-icon="po-icon-book"
+      [p-disabled]="carregandoInputLivro"
+      [p-clean]="true"
+    >
+    </po-combo>
+  </div>
+  <div class="po-row">
+    <po-datepicker
+      class="po-xl-6 po-md-12 po-sm-12"
+      formControlName="dataEmprestimo"
+      p-label="Data de Empréstimo"
+      p-error-pattern="Data inválida"
+      p-readonly
+    >
+    </po-datepicker>
+    <po-datepicker
+      class="po-xl-6 po-md-12 po-sm-12"
+      formControlName="dataDevolucao"
+      p-label="Data de Devolução"
+      p-error-pattern="Data inválida"
+    >
+    </po-datepicker>
+  </div>
+</form>
+<div class="po-md-12 po-sm-12 po-pt-4 po-pb-1 po-text-right">
+  <po-button
+    p-label="Cancelar"
+    p-kind="secondary"
+    [p-danger]="true"
+    p-icon="po-icon-close"
+    (p-click)="cancelar()"
+  >
+  </po-button>
+  <po-button
+    class="po-pl-1"
+    p-label="Salvar"
+    p-kind="secondary"
+    p-icon="po-icon-ok"
+    (p-click)="salvar()"
+    [p-disabled]="!this.form.valid"
+  >
+  </po-button>
+</div>
+
+<!--<po-button p-label="LOG" (p-click)="log()"></po-button>-->
