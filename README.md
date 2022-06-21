@@ -1,9 +1,7 @@
-# Título do Projeto 
+# Trabalho WebService
 
 ![GitHub repo size](https://img.shields.io/github/repo-size/fbomtempo/sistema-biblioteca?style=for-the-badge)
 ![GitHub language count](https://img.shields.io/github/languages/count/fbomtempo/sistema-biblioteca?style=for-the-badge)
-
-Trabalho WebService
 
 ## Descrição
 
