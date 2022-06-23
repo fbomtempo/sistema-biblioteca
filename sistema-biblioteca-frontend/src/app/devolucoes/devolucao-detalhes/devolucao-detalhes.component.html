@@ -1,1 +1,47 @@
-<p>devolucao-detalhes works!</p>
+<po-widget>
+  <div class="po-font-title">
+    Visualizar Devolução
+  </div>
+  <hr />
+  <dl class="po-row po-font-text-large">
+    <dt class="po-sm-2">
+      <strong>Código:</strong>
+    </dt>
+    <dd class="po-sm-10">
+      {{ devolucao.id }}
+    </dd>
+    <dt class="po-sm-2 po-pt-1">
+      <strong>Empréstimo:</strong>
+    </dt>
+    <dd class="po-sm-10 po-pt-1">
+      {{ 'Cliente: ' +  devolucao.emprestimo.cliente.nome + ' - CPF: ' + devolucao.emprestimo.cliente.cpf }}
+    </dd>
+    <dt class="po-sm-2 po-pt-1"></dt>
+    <dd class="po-sm-10 po-pt-1">
+      {{ 'Livro: ' +  devolucao.emprestimo.livro.titulo }}
+    </dd>
+    <dt class="po-sm-2 po-pt-1">
+      <strong>Data de Devolução:</strong>
+    </dt>
+    <dd class="po-sm-10 po-pt-1">
+      {{ devolucao.dataDevolucao }}
+    </dd>
+  </dl>
+  <div class="po-pt-3 po-row">
+    <div class="po-md-12 po-sm-12 po-text-right">
+      <po-button
+        p-label="Voltar"
+        p-kind="secondary"
+        (p-click)="voltar()"
+      >
+      </po-button>
+      <po-button
+        class="po-pl-1"
+        p-label="Editar"
+        p-kind="primary"
+        (p-click)="alterar()"
+      >
+      </po-button>
+    </div>
+  </div>
+</po-widget>
