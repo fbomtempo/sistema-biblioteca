@@ -1,7 +1,8 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ModalExclusaoComponent } from './modais/modal-exclusao/modal-exclusao.component';
+import { NgModule } from '@angular/core';
 import { PoModule } from '@po-ui/ng-components';
+
+import { ModalExclusaoComponent } from './modais/modal-exclusao/modal-exclusao.component';
 
 @NgModule({
   declarations: [

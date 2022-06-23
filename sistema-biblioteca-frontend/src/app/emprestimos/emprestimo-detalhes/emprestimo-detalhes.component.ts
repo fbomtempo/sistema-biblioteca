@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+
 import { Emprestimo } from '../models/emprestimo';
+import { SituacaoEmprestimo } from '../models/enums/situacao-emprestimo';
 
 @Component({
   selector: 'app-emprestimo-detalhes',
@@ -27,8 +29,8 @@ export class EmprestimoDetalhesComponent implements OnInit {
 
   aplicarEstilo(): any {
     return {
-      'po-text-color-08': (this.emprestimo.situacaoEmprestimo === 'REALIZADO'),
-      'po-text-color-11': (this.emprestimo.situacaoEmprestimo === 'FINALIZADO')
+      'po-text-color-08': (this.emprestimo.situacaoEmprestimo === SituacaoEmprestimo.PENDENTE),
+      'po-text-color-11': (this.emprestimo.situacaoEmprestimo === SituacaoEmprestimo.FINALIZADO)
     };
   }
 

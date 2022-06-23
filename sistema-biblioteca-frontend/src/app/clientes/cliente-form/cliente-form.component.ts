@@ -3,8 +3,9 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PoNotificationService } from '@po-ui/ng-components';
 import { FormService } from 'src/app/shared/services/form-service';
+
 import { Cliente } from '../models/cliente';
-import { ClienteService } from '../services/cliente-service.service';
+import { ClienteService } from '../services/cliente.service';
 
 @Component({
   selector: 'app-cliente-form',
@@ -35,7 +36,7 @@ export class ClienteFormComponent extends FormService implements OnInit, OnDestr
       tipoTelefone: [this.tipoTelefone, [Validators.required]],
       telefone: [cliente.telefone, [Validators.required, Validators.minLength(10), Validators.maxLength(11)]]
     });
-    this.escutarMudancasNoForm();
+    this.escutarMudancasNoForm({ verificarInicializacao: false });
   }
 
   ngOnDestroy(): void {
@@ -87,8 +88,9 @@ export class ClienteFormComponent extends FormService implements OnInit, OnDestr
 
   trocarTipoTelefone(event: any) {
     this.tipoTelefone = event;
+    this.form.get('telefone')?.markAsDirty();
     this.form.patchValue({
       telefone: null
-    })
+    });
   }
 }

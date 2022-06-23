@@ -101,6 +101,21 @@ export class EmprestimoFormComponent extends FormService implements OnInit, OnDe
     return date.toISOString().split('T')[0];
   }
 
+  1 ----
+  override escutarMudancasNoForm(): void {
+    this.inscricao = this.form.valueChanges
+      .subscribe(() => {
+        if (this.tipoForm === 'Editar') {
+          for (const campo in this.form.value) {
+            if (this.form.get(campo)?.touched && this.form.get(campo)?.dirty) {
+              this.alterado = true;
+            }
+          }
+        }
+      });
+  }
+
+  2 ----
   override escutarMudancasNoForm(): void {
     this.inscricao = this.form.valueChanges.subscribe(() => {
       let contador: number = 0;

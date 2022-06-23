@@ -1,5 +1,5 @@
 export enum SituacaoEmprestimo {
 
-  REALIZADO = 'REALIZADO',
+  PENDENTE = 'PENDENTE',
   FINALIZADO = 'FINALIZADO'
 }

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+
 import { CanDeactivateGuard } from '../shared/guards/can-deactivate.guard';
 import { DevolucaoDetalhesComponent } from './devolucao-detalhes/devolucao-detalhes.component';
 import { DevolucaoFormComponent } from './devolucao-form/devolucao-form.component';

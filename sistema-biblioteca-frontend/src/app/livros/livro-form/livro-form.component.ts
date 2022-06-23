@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PoNotificationService } from '@po-ui/ng-components';
 import { FormService } from 'src/app/shared/services/form-service';
+
 import { Livro } from '../models/livro';
 import { LivroService } from '../services/livro.service';
 
@@ -32,7 +33,7 @@ export class LivroFormComponent extends FormService implements OnInit, OnDestroy
       editora: [livro.editora, [Validators.required, Validators.maxLength(50)]],
       ano: [livro.ano, [Validators.minLength(4), Validators.maxLength(4)]]
     });
-    this.escutarMudancasNoForm();
+    this.escutarMudancasNoForm({ verificarInicializacao: false });
   }
 
   ngOnDestroy(): void {

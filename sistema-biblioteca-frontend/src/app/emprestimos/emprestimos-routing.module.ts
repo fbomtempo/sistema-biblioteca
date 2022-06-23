@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+
 import { CanDeactivateGuard } from '../shared/guards/can-deactivate.guard';
 import { EmprestimoDetalhesComponent } from './emprestimo-detalhes/emprestimo-detalhes.component';
 import { EmprestimoFormComponent } from './emprestimo-form/emprestimo-form.component';

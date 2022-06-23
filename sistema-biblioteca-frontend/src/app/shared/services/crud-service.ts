@@ -1,5 +1,5 @@
-import { HttpClient } from "@angular/common/http";
-import { delay, Observable, take } from "rxjs";
+import { HttpClient } from '@angular/common/http';
+import { delay, Observable, take } from 'rxjs';
 
 export class CrudService<T extends { id?: number }> {
 

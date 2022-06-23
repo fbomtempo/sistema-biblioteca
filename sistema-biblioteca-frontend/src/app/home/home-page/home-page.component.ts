@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { PoModalAction, PoModalComponent, PoNotificationService } from '@po-ui/ng-components';
+import { PoCalendarMode, PoChartOptions, PoChartSerie, PoChartType, PoModalAction, PoModalComponent, PoNotificationService } from '@po-ui/ng-components';
+import { map } from 'rxjs';
+import { DropdownService } from 'src/app/shared/services/dropdown.service';
 import { LocalStorageService } from 'src/app/shared/services/local-storage-service.service';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -11,6 +13,16 @@ import { v4 as uuidv4 } from 'uuid';
 })
 export class HomePageComponent implements OnInit {
 
+  totalEmprestimosMensal: Array<PoChartSerie> = []
+  readonly colunas: Array<string> = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
+  readonly opcoesColunas: PoChartOptions = {
+    axis: {
+      minRange: 0,
+      maxRange: 20,
+      gridLines: 5
+    }
+  };
+  modo: any = (window.innerWidth >= 800) ? PoCalendarMode.Range : undefined;
   @ViewChild('optionsForm', { static: true }) form!: NgForm;
   @ViewChild(PoModalComponent, { static: true }) poModal!: PoModalComponent;
   fechar: PoModalAction = {
@@ -32,13 +44,39 @@ export class HomePageComponent implements OnInit {
   lembretes: any[] = [];
 
   constructor(
+    private dropdownService: DropdownService,
     private localStorage: LocalStorageService,
     private poNotification: PoNotificationService
   ) { }
 
   ngOnInit(): void {
+    this.recuperarEmprestimos();
     this.recuperarLembretes();
   }
+
+  recuperarEmprestimos() {
+    this.dropdownService.recuperarEmprestimos()
+      .pipe(
+        map(emprestimos => {
+          let totalEmprestimosMensal: number[] = [];
+          for (let index = 1; index < 12; index++) {
+            totalEmprestimosMensal[index] = 0;
+          }
+          emprestimos.forEach(emprestimo => {
+            let data: Date = new Date(emprestimo.dataEmprestimo);
+            let mes = data.getMonth();
+            totalEmprestimosMensal[mes] += 1;
+          });
+          return totalEmprestimosMensal
+        })
+      )
+      .subscribe((totalEmprestimosMensal) => {
+        this.totalEmprestimosMensal = [
+          { label: 'Meses', data: totalEmprestimosMensal, type: PoChartType.Column, color: 'color-06' }
+        ]
+      })
+  };
+
 
   recuperarLembretes(): void {
     this.lembretes = this.localStorage.recuperar('lembretes');

@@ -1,5 +1,5 @@
-import { Cliente } from "src/app/clientes/models/cliente";
-import { Livro } from "src/app/livros/models/livro";
+import { Cliente } from 'src/app/clientes/models/cliente';
+import { Livro } from 'src/app/livros/models/livro';
 
 export interface Emprestimo {
 

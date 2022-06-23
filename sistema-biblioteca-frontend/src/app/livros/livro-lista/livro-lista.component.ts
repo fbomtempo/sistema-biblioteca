@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { PoNotificationService, PoTableAction, PoTableColumn, PoTableLiterals } from '@po-ui/ng-components';
 import { catchError, Observable, of, Subject } from 'rxjs';
 import { ModalExclusaoComponent } from 'src/app/shared/modais/modal-exclusao/modal-exclusao.component';
+
 import { Livro } from '../models/livro';
 import { LivroService } from '../services/livro.service';
 
@@ -92,7 +93,7 @@ export class LivroListaComponent implements OnInit {
       );
   }
 
-  dados(livros: Livro[]): Livro[] {
+  mostrarDados(livros: Livro[]): Livro[] {
     if (this.filtro === '') {
       return livros;
     }

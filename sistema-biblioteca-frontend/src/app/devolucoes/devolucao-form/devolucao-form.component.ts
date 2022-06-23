@@ -1,10 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { PoComboLiterals, PoComboOption, PoNotificationService, PoTableLiterals } from '@po-ui/ng-components';
+import { PoComboLiterals, PoComboOption, PoNotificationService } from '@po-ui/ng-components';
 import { map } from 'rxjs';
+import { SituacaoEmprestimo } from 'src/app/emprestimos/models/enums/situacao-emprestimo';
 import { DropdownService } from 'src/app/shared/services/dropdown.service';
 import { FormService } from 'src/app/shared/services/form-service';
+
 import { Devolucao } from '../models/devolucao';
 import { DevolucaoService } from '../services/devolucao.service';
 
@@ -39,22 +41,7 @@ export class DevolucaoFormComponent extends FormService implements OnInit, OnDes
       emprestimo: [null, [Validators.required]],
       dataDevolucao: [devolucao.dataDevolucao, [Validators.required]]
     });
-    this.escutarMudancasNoForm();
-    /*console.log(
-      [
-        'String',
-        1,
-        [
-          'Array',
-          'dentro',
-          'do',
-          'array'],
-        {
-          id: 3,
-          value: 'Book'
-        }
-      ]
-    );*/
+    this.escutarMudancasNoForm({ verificarInicializacao: true })
   }
 
   ngOnDestroy(): void {
@@ -72,42 +59,31 @@ export class DevolucaoFormComponent extends FormService implements OnInit, OnDes
     return devolucao;
   }
 
-  private recuperarDados(devolucao: Devolucao): void {
-    this.dropdownService.recuperarEmprestimos()
-      .pipe(
-        map(emprestimos => {
-          return emprestimos.map(emprestimo => {
-            return {
-              label: emprestimo.cliente.nome,
-              value: emprestimo.id
-            };
-          });
-        })
-      )
-      .subscribe(opcoes => {
-        this.opcoesInputEmprestimo = opcoes;
-        setTimeout(() => this.form.patchValue({
-          emprestimo: devolucao.emprestimo?.id
-        }, { emitEvent: false }));
-      });
-  }
-
   private converterData(data: Date): string {
     const offset = data.getTimezoneOffset();
     data = new Date(data.getTime() - (offset * 60 * 1000));
     return data.toISOString().split('T')[0];
   }
 
-  override escutarMudancasNoForm(): void {
-    this.inscricao = this.form.valueChanges
-      .subscribe(() => {
-        if (this.tipoForm === 'Editar') {
-          for (const campo in this.form.value) {
-            if (this.form.get(campo)?.touched && this.form.get(campo)?.dirty) {
-              this.alterado = true;
-            }
-          }
-        }
+  private recuperarDados(devolucao: Devolucao): void {
+    this.dropdownService.recuperarEmprestimos()
+      .pipe(
+        map(emprestimos => {
+          return emprestimos
+            .filter(emprestimo => emprestimo.situacaoEmprestimo != SituacaoEmprestimo.FINALIZADO || emprestimo.id === devolucao.emprestimo?.id)
+            .map(emprestimo => {
+              return {
+                label: emprestimo.cliente.nome,
+                value: emprestimo.id
+              };
+            });
+        })
+      )
+      .subscribe(opcoes => {
+        this.opcoesInputEmprestimo = opcoes;
+        setTimeout(() => this.form.patchValue({
+          emprestimo: (this.route.snapshot.queryParams['devolver']) ? this.route.snapshot.queryParams['devolver'] : devolucao.emprestimo?.id
+        }, { emitEvent: false }));
       });
   }
 

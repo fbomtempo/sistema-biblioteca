@@ -3,8 +3,9 @@ import { Router } from '@angular/router';
 import { PoNotificationService, PoTableAction, PoTableColumn, PoTableLiterals } from '@po-ui/ng-components';
 import { catchError, Observable, of, Subject } from 'rxjs';
 import { ModalExclusaoComponent } from 'src/app/shared/modais/modal-exclusao/modal-exclusao.component';
+
 import { Cliente } from '../models/cliente';
-import { ClienteService } from '../services/cliente-service.service';
+import { ClienteService } from '../services/cliente.service';
 
 @Component({
   selector: 'app-cliente-lista',
@@ -83,7 +84,7 @@ export class ClienteListaComponent implements OnInit {
       );
   }
 
-  dados(clientes: Cliente[]): Cliente[] {
+  mostrarDados(clientes: Cliente[]): Cliente[] {
     clientes.map(cliente => {
       cliente.cpf = cliente.cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
       (cliente.telefone.length > 10)

@@ -3,7 +3,9 @@ import { Router } from '@angular/router';
 import { PoNotificationService, PoTableAction, PoTableColumn, PoTableLiterals } from '@po-ui/ng-components';
 import { catchError, map, Observable, of, Subject } from 'rxjs';
 import { ModalExclusaoComponent } from 'src/app/shared/modais/modal-exclusao/modal-exclusao.component';
+
 import { Emprestimo } from '../models/emprestimo';
+import { SituacaoEmprestimo } from '../models/enums/situacao-emprestimo';
 import { EmprestimoService } from '../services/emprestimo.service';
 
 @Component({
@@ -42,8 +44,8 @@ export class EmprestimoListaComponent implements OnInit {
       label: 'Situação',
       type: 'label',
       labels: [
-        { value: 'REALIZADO', color: 'color-08', label: 'Realizado' },
-        { value: 'FINALIZADO', color: 'color-11', label: 'Finalizado' }
+        { value: SituacaoEmprestimo.PENDENTE, color: 'color-08', label: 'Realizado' },
+        { value: SituacaoEmprestimo.FINALIZADO, color: 'color-11', label: 'Finalizado' }
       ]
     }
   ];
@@ -62,6 +64,11 @@ export class EmprestimoListaComponent implements OnInit {
       icon: 'po-icon-info',
       label: 'Visualizar',
       action: this.visualizar.bind(this)
+    },
+    {
+      icon: 'po-icon-calendar-ok',
+      label: 'Devolver',
+      action: this.devolver.bind(this)
     }
   ];
   readonly literals: PoTableLiterals = {
@@ -99,7 +106,7 @@ export class EmprestimoListaComponent implements OnInit {
       );
   }
 
-  dados(emprestimos: Emprestimo[]): Emprestimo[] {
+  mostrarDados(emprestimos: Emprestimo[]): Emprestimo[] {
     if (this.filtro === '') {
       return emprestimos;
     }
@@ -139,6 +146,14 @@ export class EmprestimoListaComponent implements OnInit {
 
   visualizar(item: any): void {
     this.router.navigate([`emprestimos/visualizar/${item.id}`]);
+  }
+
+  devolver(item: any) {
+    if (item.situacaoEmprestimo != SituacaoEmprestimo.FINALIZADO) {
+      this.router.navigate(['devolucoes/novo'], { queryParams: { devolver: item.id }});
+    } else {
+      this.poNotification.warning('Empréstimo já finalizado!')
+    }
   }
 }
 

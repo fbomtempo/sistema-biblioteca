@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+
 import { CanDeactivateGuard } from '../shared/guards/can-deactivate.guard';
 import { LivrosResolver } from './guards/livros.resolver';
 import { LivroDetalhesComponent } from './livro-detalhes/livro-detalhes.component';

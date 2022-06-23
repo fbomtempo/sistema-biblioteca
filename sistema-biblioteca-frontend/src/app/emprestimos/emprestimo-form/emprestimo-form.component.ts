@@ -3,11 +3,10 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PoComboOption, PoNotificationService, PoTableLiterals } from '@po-ui/ng-components';
 import { map } from 'rxjs';
-import { ClienteService } from 'src/app/clientes/services/cliente-service.service';
 import { DisponibilidadeLivro } from 'src/app/livros/models/enums/disponibilidade-livro';
-import { LivroService } from 'src/app/livros/services/livro.service';
 import { DropdownService } from 'src/app/shared/services/dropdown.service';
 import { FormService } from 'src/app/shared/services/form-service';
+
 import { Emprestimo } from '../models/emprestimo';
 import { EmprestimoService } from '../services/emprestimo.service';
 
@@ -47,7 +46,7 @@ export class EmprestimoFormComponent extends FormService implements OnInit, OnDe
       dataEmprestimo: [emprestimo.dataEmprestimo, [Validators.required]],
       dataDevolucao: [emprestimo.dataDevolucao, [Validators.required]]
     });
-    this.escutarMudancasNoForm();
+    this.escutarMudancasNoForm({ verificarInicializacao: true });
   }
 
   ngOnDestroy(): void {
@@ -63,6 +62,12 @@ export class EmprestimoFormComponent extends FormService implements OnInit, OnDe
       emprestimo.dataEmprestimo = this.converterData(new Date());
     }
     return emprestimo;
+  }
+
+  private converterData(data: Date): string {
+    const offset = data.getTimezoneOffset();
+    data = new Date(data.getTime() - (offset * 60 * 1000));
+    return data.toISOString().split('T')[0];
   }
 
   private recuperarDados(emprestimo: Emprestimo): void {
@@ -87,12 +92,14 @@ export class EmprestimoFormComponent extends FormService implements OnInit, OnDe
     this.dropdownService.recuperarLivros()
       .pipe(
         map(livros => {
-          return livros.map(livro => {
-            return {
-              label: livro.titulo,
-              value: livro.id
-            };
-          });
+          return livros
+            .filter(livro => livro.disponibilidadeLivro != DisponibilidadeLivro.INDISPONIVEL || livro.id === emprestimo.livro?.id)
+            .map(livro => {
+              return {
+                label: livro.titulo,
+                value: livro.id
+              };
+            });
         })
       )
       .subscribe(opcoes => {
@@ -101,23 +108,6 @@ export class EmprestimoFormComponent extends FormService implements OnInit, OnDe
         setTimeout(() => this.form.patchValue({
           livro: emprestimo.livro?.id
         }, { emitEvent: false }));
-      });
-  }
-
-  private converterData(data: Date): string {
-    const offset = data.getTimezoneOffset();
-    data = new Date(data.getTime() - (offset * 60 * 1000));
-    return data.toISOString().split('T')[0];
-  }
-
-  override escutarMudancasNoForm(): void {
-    this.inscricao = this.form.valueChanges
-      .subscribe(() => {
-        for (const campo in this.form.value) {
-          if (this.form.get(campo)?.touched && this.form.get(campo)?.dirty) {
-            this.alterado = true;
-          }
-        }
       });
   }
 

@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-
 import { PoMenuItem, PoNavbarItem } from '@po-ui/ng-components';
 
 @Component({

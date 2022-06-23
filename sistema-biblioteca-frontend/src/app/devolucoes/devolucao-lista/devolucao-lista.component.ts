@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { PoNotificationService, PoTableAction, PoTableColumn, PoTableLiterals } from '@po-ui/ng-components';
 import { catchError, map, Observable, of, Subject } from 'rxjs';
 import { ModalExclusaoComponent } from 'src/app/shared/modais/modal-exclusao/modal-exclusao.component';
+
 import { Devolucao } from '../models/devolucao';
 import { DevolucaoService } from '../services/devolucao.service';
 
