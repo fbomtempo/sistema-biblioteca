@@ -3,7 +3,7 @@
 </div>
 <div class="po-row po-pt-2">
   <po-container class="po-xl-7 po-lg-12 po-md-12 po-sm-12" [p-height]="480">
-    <div class="po-pb-3 po-text-center">
+    <div class="po-text-center">
       <div class="po-font-text-large-bold po-font-text-uppercase">
         Total de Empréstimos
       </div>
@@ -17,11 +17,11 @@
     </div>
   </po-container>
   <po-container class="po-xl-5 po-lg-12 po-md-12 po-sm-12 po-pt-lg-0 po-pt-3" [p-height]="480">
-    <div class="po-pb-3 po-font-text-large-bold  po-font-text-uppercase po-text-center">
-      Calendário
-    </div>
-    <div class="po-row po-pt-3" style="display: flex; align-items: center; justify-content: center;">
-      <div class="po-offset-lg-3 po-pl-2">
+    <div class="po-text-center">
+      <div class="po-font-text-large-bold po-font-text-uppercase ">
+        Calendário
+      </div>
+      <div class="po-pt-5" style="display: flex; justify-content: center;">
         <po-calendar
           p-locale="pt"
           [p-mode]="modo"
@@ -31,31 +31,37 @@
     </div>
   </po-container>
 </div>
-<po-container class="po-md-12 po-sm-12 po-pt-2">
-  <div class="po-pb-3 po-font-text-large-bold po-font-text-uppercase po-text-center">
-    Lembretes
-    <po-button
-      class="po-pl-1"
-      p-label="Adicionar"
-      p-kind="secondary"
-      [p-small]="true"
-      (p-click)="abrirModal()"
-    >
-    </po-button>
-  </div>
-  <div class="po-row">
-    <po-widget *ngFor="let lembrete of lembretes"
-      #lembrete
-      class="po-md-12 po-lg-4 po-sm-12 po-mt-2"
-      [p-title]='lembrete.titulo'
-      p-primary-label="Remover"
-      (p-primary-action)="removerLembrete(lembrete)"
-    >
-      <div class="po-font-subtitle po-text-center">{{ lembrete.conteudoPrincipal }}</div>
-      <div class="po-text-center">{{ lembrete.conteudoSecundario }}</div>
-    </po-widget>
-  </div>
-</po-container>
+<div class="po-row">
+  <po-container class="po-md-12 po-sm-12 po-pt-2">
+    <div class="po-text-center">
+      <div class="po-font-text-large-bold po-font-text-uppercase ">
+        Lembretes
+        <po-button
+          class="po-pl-1"
+          p-label="Adicionar"
+          p-kind="secondary"
+          [p-small]="true"
+          (p-click)="abrirModal()"
+        >
+        </po-button>
+      </div>
+    </div>
+    <div class="po-row">
+      <po-widget *ngFor="let lembrete of lembretes"
+        #lembrete
+        class="po-md-12 po-lg-4 po-sm-6 po-mt-2"
+        [p-title]='lembrete.titulo'
+        p-primary-label="Remover"
+        (p-primary-action)="removerLembrete(lembrete)"
+      >
+        <div class="po-font-subtitle po-text-center">{{ lembrete.conteudoPrincipal }}</div>
+        <div class="po-text-center">{{ lembrete.conteudoSecundario }}</div>
+      </po-widget>
+    </div>
+  </po-container>
+</div>
+
+<!-- MODAIS -->
 
 <po-modal p-title="Lembrete" [p-primary-action]="confirmar" [p-secondary-action]="fechar">
   <form #optionsForm="ngForm">

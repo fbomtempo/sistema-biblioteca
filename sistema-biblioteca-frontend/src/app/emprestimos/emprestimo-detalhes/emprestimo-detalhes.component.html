@@ -14,7 +14,11 @@
       <strong>Cliente:</strong>
     </dt>
     <dd class="po-sm-10 po-pt-1">
-      {{ emprestimo.cliente.nome + ' | CPF ' + emprestimo.cliente.cpf }}
+      {{ emprestimo.cliente.nome }}
+    </dd>
+    <dt class="po-sm-2 po-pt-1"></dt>
+    <dd class="po-sm-10 po-pt-1">
+      {{ 'CPF: ' + emprestimo.cliente.cpf }}
     </dd>
     <dt class="po-sm-2 po-pt-1">
       <strong>Livro:</strong>
@@ -45,9 +49,18 @@
   </dl>
   <div class="po-pt-3 po-row">
     <div class="po-md-12 po-sm-12 po-text-right">
-      <po-button p-label="Voltar" [p-danger]="true" p-kind="secondary" (p-click)="voltar()">
+      <po-button
+        p-label="Voltar"
+        p-kind="secondary"
+        (p-click)="voltar()"
+      >
       </po-button>
-      <po-button class="po-pl-1" p-label="Editar" p-kind="secondary" (p-click)="alterar()">
+      <po-button
+        class="po-pl-1"
+        p-label="Editar"
+        p-kind="primary"
+        (p-click)="alterar()"
+      >
       </po-button>
     </div>
   </div>

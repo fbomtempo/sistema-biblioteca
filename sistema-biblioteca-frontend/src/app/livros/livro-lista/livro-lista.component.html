@@ -39,11 +39,15 @@
   </div>
 </div>
 
+<!-- MODAIS -->
+
 <modal-exclusao
   #modal
   (evento)="deletar($event)"
 >
 </modal-exclusao>
+
+<!-- TEMPLATES -->
 
 <ng-template #errorScreen>
   <div *ngIf="error | async; else loadingScreen"></div>

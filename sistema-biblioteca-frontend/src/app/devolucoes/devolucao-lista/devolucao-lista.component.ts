@@ -23,20 +23,16 @@ export class DevolucaoListaComponent implements OnInit {
       width: '5%'
     },
     {
-      property: 'emprestimo.id',
-      label: 'Código do Empréstimo'
-    },
-    {
       property: 'emprestimo.cliente.nome',
       label: 'Cliente'
     },
     {
-      property: 'emprestimo.livro.titulo',
-      label: 'Livro'
-    },
-    {
       property: 'emprestimo.cliente.cpf',
       label: 'CPF'
+    },
+    {
+      property: 'emprestimo.livro.titulo',
+      label: 'Livro'
     },
     {
       property: 'dataDevolucao',

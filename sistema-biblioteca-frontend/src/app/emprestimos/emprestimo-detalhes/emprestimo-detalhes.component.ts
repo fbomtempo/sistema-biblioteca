@@ -23,6 +23,8 @@ export class EmprestimoDetalhesComponent implements OnInit {
   }
 
   private mascara(emprestimo: Emprestimo): Emprestimo {
+    emprestimo.dataEmprestimo = new Date(emprestimo.dataEmprestimo).toLocaleDateString('pt-BR', { timeZone: 'UTC' });
+    emprestimo.dataDevolucao = new Date(emprestimo.dataDevolucao).toLocaleDateString('pt-BR', { timeZone: 'UTC' });
     emprestimo.cliente.cpf = emprestimo.cliente.cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
     return emprestimo;
   }

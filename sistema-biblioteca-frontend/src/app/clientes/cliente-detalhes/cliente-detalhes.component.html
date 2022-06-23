@@ -37,9 +37,18 @@
   </dl>
   <div class="po-pt-3 po-row">
     <div class="po-md-12 po-sm-12 po-text-right">
-      <po-button p-label="Voltar" [p-danger]="true" p-kind="secondary" (p-click)="voltar()">
+      <po-button
+        p-label="Voltar"
+        p-kind="secondary"
+        (p-click)="voltar()"
+      >
       </po-button>
-      <po-button class="po-pl-1" p-label="Editar" p-kind="secondary" (p-click)="alterar()">
+      <po-button
+        class="po-pl-1"
+        p-label="Editar"
+        p-kind="primary"
+        (p-click)="alterar()"
+      >
       </po-button>
     </div>
   </div>

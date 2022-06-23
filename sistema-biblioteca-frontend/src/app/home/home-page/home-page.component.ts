@@ -22,7 +22,9 @@ export class HomePageComponent implements OnInit {
       gridLines: 5
     }
   };
-  modo: any = (window.innerWidth >= 800) ? PoCalendarMode.Range : undefined;
+  modo: any = (window.innerWidth >= 790 && window.innerWidth <= 1366)
+                ? PoCalendarMode.Range
+                : undefined;
   @ViewChild('optionsForm', { static: true }) form!: NgForm;
   @ViewChild(PoModalComponent, { static: true }) poModal!: PoModalComponent;
   fechar: PoModalAction = {
@@ -54,6 +56,13 @@ export class HomePageComponent implements OnInit {
     this.recuperarLembretes();
   }
 
+  teste() {
+    if (window.innerWidth > 500)  {
+      return true
+    }
+    return false;
+  }
+
   recuperarEmprestimos() {
     this.dropdownService.recuperarEmprestimos()
       .pipe(
@@ -72,11 +81,10 @@ export class HomePageComponent implements OnInit {
       )
       .subscribe((totalEmprestimosMensal) => {
         this.totalEmprestimosMensal = [
-          { label: 'Meses', data: totalEmprestimosMensal, type: PoChartType.Column, color: 'color-06' }
+          { label: 'Empréstimos', data: totalEmprestimosMensal, type: PoChartType.Column, color: 'color-06' }
         ]
       })
   };
-
 
   recuperarLembretes(): void {
     this.lembretes = this.localStorage.recuperar('lembretes');
