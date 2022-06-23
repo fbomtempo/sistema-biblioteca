@@ -29,14 +29,14 @@ public class ClienteService {
 	}
 
 	public void remover(Long id) {
-		repository.findById(id).map((cliente) -> {
+		repository.findById(id).map(cliente -> {
 			repository.delete(cliente);
 			return Void.TYPE;
 		}).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 	}
 
 	public Cliente alterar(Long id, Cliente clienteAtualizado) {
-		return repository.findById(id).map((cliente) -> {
+		return repository.findById(id).map(cliente -> {
 			clienteAtualizado.setId(cliente.getId());
 			return repository.save(clienteAtualizado);
 		}).get();

@@ -31,14 +31,14 @@ public class LivroService {
 	}
 
 	public void remover(Long id) {
-		repository.findById(id).map((livro) -> {
+		repository.findById(id).map(livro -> {
 			repository.delete(livro);
 			return Void.TYPE;
 		}).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 	}
 
 	public Livro alterar(Long id, Livro livroAtualizado) {
-		return repository.findById(id).map((livro) -> {
+		return repository.findById(id).map(livro -> {
 			livroAtualizado.setDisponibilidadeLivro(livro.getDisponibilidadeLivro());
 			livroAtualizado.setId(livro.getId());
 			return repository.save(livroAtualizado);

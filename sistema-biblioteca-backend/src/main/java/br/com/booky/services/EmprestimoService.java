@@ -43,7 +43,7 @@ public class EmprestimoService {
 	}
 
 	public void remover(Long id) {
-		repository.findById(id).map((emprestimo) -> {
+		repository.findById(id).map(emprestimo -> {
 			emprestimo.cancelarEmprestimo();
 			livroRepository.save(emprestimo.getLivro());
 			repository.delete(emprestimo);
@@ -51,11 +51,11 @@ public class EmprestimoService {
 		}).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 	}
 
-	public Emprestimo alterar(Long id, Emprestimo novoEmprestimo) {
+	public Emprestimo alterar(Long id, Emprestimo emprestimoAtualizado) {
 		return repository.findById(id).map(emprestimo -> {
-			novoEmprestimo.setSituacaoEmprestimo(emprestimo.getSituacaoEmprestimo());
-			novoEmprestimo.setId(emprestimo.getId());
-			return repository.save(novoEmprestimo);
+			emprestimoAtualizado.setSituacaoEmprestimo(emprestimo.getSituacaoEmprestimo());
+			emprestimoAtualizado.setId(emprestimo.getId());
+			return repository.save(emprestimoAtualizado);
 		}).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 	}
 }

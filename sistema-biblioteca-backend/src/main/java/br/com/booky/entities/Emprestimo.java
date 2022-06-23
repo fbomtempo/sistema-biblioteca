@@ -53,7 +53,7 @@ public class Emprestimo {
 	public SituacaoEmprestimo situacaoEmprestimo;
 	
 	public void realizarEmprestimo() {
-		setSituacaoEmprestimo(SituacaoEmprestimo.REALIZADO);
+		setSituacaoEmprestimo(SituacaoEmprestimo.PENDENTE);
 		getLivro().setDisponibilidadeLivro(DisponibilidadeLivro.INDISPONIVEL);
 	}
 	

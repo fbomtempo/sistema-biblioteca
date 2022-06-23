@@ -19,10 +19,10 @@ public class DevolucaoService {
 
 	@Autowired
 	private DevolucaoRepository repository;
-	
+
 	@Autowired
 	private EmprestimoRepository emprestimoRepository;
-	
+
 	@Autowired
 	private LivroRepository livroRepository;
 
@@ -38,7 +38,7 @@ public class DevolucaoService {
 		devolucao.setEmprestimo(emprestimoRepository.findById(devolucao.getEmprestimo().getId())
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)));
 		Emprestimo emprestimo = devolucao.getEmprestimo();
-		if (emprestimo.getSituacaoEmprestimo() == SituacaoEmprestimo.REALIZADO) {
+		if (emprestimo.getSituacaoEmprestimo() == SituacaoEmprestimo.PENDENTE) {
 			emprestimo.finalizarEmprestimo();
 			emprestimoRepository.save(devolucao.getEmprestimo());
 			livroRepository.save(devolucao.getEmprestimo().getLivro());
@@ -58,10 +58,10 @@ public class DevolucaoService {
 		}).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 	}
 
-	public Devolucao alterar(Long id, Devolucao novaDevolucao) {
-		return repository.findById(id).map(antigoDevolucao -> {
-			novaDevolucao.setId(antigoDevolucao.getId());
-			return repository.save(novaDevolucao);
+	public Devolucao alterar(Long id, Devolucao devolucaoAtualizada) {
+		return repository.findById(id).map(devolucao -> {
+			devolucaoAtualizada.setId(devolucao.getId());
+			return repository.save(devolucaoAtualizada);
 		}).get();
 	}
 }
