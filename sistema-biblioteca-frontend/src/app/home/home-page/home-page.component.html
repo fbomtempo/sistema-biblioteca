@@ -2,18 +2,31 @@
   Bem-vindo de volta, usuário(a)!
 </div>
 <div class="po-row po-pt-2">
-  <po-container class="po-xl-7 po-lg-12 po-md-12 po-sm-12" [p-height]="400">
-    <div class="po-pb-3 po-font-text-large-bold po-font-text-uppercase po-text-center">
-      Total de Empréstimos
+  <po-container class="po-xl-7 po-lg-12 po-md-12 po-sm-12" [p-height]="480">
+    <div class="po-pb-3 po-text-center">
+      <div class="po-font-text-large-bold po-font-text-uppercase">
+        Total de Empréstimos
+      </div>
+      <po-chart
+        class="po-md-12 po-mt-2"
+        [p-options]="opcoesColunas"
+        [p-categories]="colunas"
+        [p-series]="totalEmprestimosMensal"
+      >
+      </po-chart>
     </div>
   </po-container>
-  <po-container class="po-xl-5 po-lg-12 po-md-12 po-sm-12 po-pt-lg-0 po-pt-3" [p-height]="400">
+  <po-container class="po-xl-5 po-lg-12 po-md-12 po-sm-12 po-pt-lg-0 po-pt-3" [p-height]="480">
     <div class="po-pb-3 po-font-text-large-bold  po-font-text-uppercase po-text-center">
       Calendário
     </div>
-    <div class="po-row">
-      <div class="po-offset-lg-3 po-offset-md-1 po-pl-2">
-        <po-calendar p-locale="pt"></po-calendar>
+    <div class="po-row po-pt-3" style="display: flex; align-items: center; justify-content: center;">
+      <div class="po-offset-lg-3 po-pl-2">
+        <po-calendar
+          p-locale="pt"
+          [p-mode]="modo"
+        >
+        </po-calendar>
       </div>
     </div>
   </po-container>
