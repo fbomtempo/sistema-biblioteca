@@ -57,13 +57,12 @@ export class LivroFormComponent extends FormService implements OnInit, OnDestroy
   salvar(): void {
     if (this.form.valid) {
       const livro: Livro = this.form.value;
-      console.log(livro)
       if (!this.route.snapshot.params['id']) {
         this.livroService.inserir(livro).subscribe({
           complete: () => {
             this.form.reset();
             this.alterado = false;
-            this.poNotification.success('Livro cadastrado com sucesso!')
+            this.poNotification.success('Livro cadastrado com sucesso!');
             this.router.navigate(['livros']);
           }
         });
@@ -72,7 +71,7 @@ export class LivroFormComponent extends FormService implements OnInit, OnDestroy
           complete: () => {
             this.form.reset();
             this.alterado = false;
-            this.poNotification.success('Livro alterado com sucesso!')
+            this.poNotification.success('Livro alterado com sucesso!');
             this.router.navigate(['livros']);
           }
         });

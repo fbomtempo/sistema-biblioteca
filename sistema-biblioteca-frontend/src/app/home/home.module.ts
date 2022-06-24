@@ -1,9 +1,11 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HomeRoutingModule } from './home-routing.module';
-import { HomePageComponent } from './home-page/home-page.component';
-import { PoModule } from '@po-ui/ng-components';
+import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { PoModule } from '@po-ui/ng-components';
+
+import { SharedModule } from '../shared/shared.module';
+import { HomePageComponent } from './home-page/home-page.component';
+import { HomeRoutingModule } from './home-routing.module';
 
 @NgModule({
   declarations: [
@@ -13,6 +15,7 @@ import { FormsModule } from '@angular/forms';
     CommonModule,
     HomeRoutingModule,
     FormsModule,
+    SharedModule,
     PoModule
   ]
 })

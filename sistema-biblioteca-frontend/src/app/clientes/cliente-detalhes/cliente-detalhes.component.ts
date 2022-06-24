@@ -29,7 +29,7 @@ export class ClienteDetalhesComponent implements OnInit {
     return cliente;
   }
 
-  alterar() {
+  alterar(): void {
     this.router.navigate([`/clientes/editar/${this.cliente.id}`]);
   }
 

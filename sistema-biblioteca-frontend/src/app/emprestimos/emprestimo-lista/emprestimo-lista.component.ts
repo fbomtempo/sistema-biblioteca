@@ -136,12 +136,13 @@ export class EmprestimoListaComponent implements OnInit {
         .subscribe({
           complete: () => {
             this.modalExclusao.poModal.close();
-            this.poNotification.success('Empréstimo removido com sucesso!')
+            this.poNotification.success('Empréstimo removido com sucesso!');
             this.atualizarLista();
           }
         });
+    } else {
+      this.modalExclusao.poModal.close();
     }
-    this.modalExclusao.poModal.close();
   }
 
   visualizar(item: any): void {

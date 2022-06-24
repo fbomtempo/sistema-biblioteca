@@ -1,6 +1,14 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { PoCalendarMode, PoChartOptions, PoChartSerie, PoChartType, PoModalAction, PoModalComponent, PoNotificationService } from '@po-ui/ng-components';
+import {
+  PoCalendarMode,
+  PoChartOptions,
+  PoChartSerie,
+  PoChartType,
+  PoModalAction,
+  PoModalComponent,
+  PoNotificationService,
+} from '@po-ui/ng-components';
 import { map } from 'rxjs';
 import { DropdownService } from 'src/app/shared/services/dropdown.service';
 import { LocalStorageService } from 'src/app/shared/services/local-storage-service.service';
@@ -13,6 +21,9 @@ import { v4 as uuidv4 } from 'uuid';
 })
 export class HomePageComponent implements OnInit {
 
+  paginaCarregada: boolean = false;
+  erro: boolean = false;
+
   totalEmprestimosMensal: Array<PoChartSerie> = []
   readonly colunas: Array<string> = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
   readonly opcoesColunas: PoChartOptions = {
@@ -22,19 +33,21 @@ export class HomePageComponent implements OnInit {
       gridLines: 5
     }
   };
+
   modo: any = (window.innerWidth >= 790 && window.innerWidth <= 1366)
                 ? PoCalendarMode.Range
                 : undefined;
+
   @ViewChild('optionsForm', { static: true }) form!: NgForm;
   @ViewChild(PoModalComponent, { static: true }) poModal!: PoModalComponent;
-  fechar: PoModalAction = {
+  readonly fechar: PoModalAction = {
     action: () => {
       this.fecharModal();
     },
     label: 'Fechar',
     danger: true
   };
-  confirmar: PoModalAction = {
+  readonly confirmar: PoModalAction = {
     action: () => {
       this.confirmarLembrete();
     },
@@ -56,33 +69,26 @@ export class HomePageComponent implements OnInit {
     this.recuperarLembretes();
   }
 
-  teste() {
-    if (window.innerWidth > 500)  {
-      return true
-    }
-    return false;
-  }
-
   recuperarEmprestimos() {
     this.dropdownService.recuperarEmprestimos()
       .pipe(
         map(emprestimos => {
-          let totalEmprestimosMensal: number[] = [];
-          for (let index = 1; index < 12; index++) {
-            totalEmprestimosMensal[index] = 0;
-          }
+          let totalEmprestimosMensal: number[] = new Array(12).fill(0);
           emprestimos.forEach(emprestimo => {
-            let data: Date = new Date(emprestimo.dataEmprestimo);
-            let mes = data.getMonth();
-            totalEmprestimosMensal[mes] += 1;
+            let mes: number = new Date(emprestimo.dataEmprestimo).getMonth();
+            totalEmprestimosMensal[mes]++;
           });
-          return totalEmprestimosMensal
+          return totalEmprestimosMensal;
         })
       )
-      .subscribe((totalEmprestimosMensal) => {
-        this.totalEmprestimosMensal = [
-          { label: 'Empréstimos', data: totalEmprestimosMensal, type: PoChartType.Column, color: 'color-06' }
-        ]
+      .subscribe({
+        next: (totalEmprestimosMensal) => {
+          this.totalEmprestimosMensal = [
+            { label: 'Empréstimos', data: totalEmprestimosMensal, type: PoChartType.Column, color: 'color-06' }
+          ]
+        },
+        error: () => this.erro = true,
+        complete: () => this.paginaCarregada = true
       })
   };
 

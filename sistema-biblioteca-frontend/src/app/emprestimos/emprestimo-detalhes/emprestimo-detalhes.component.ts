@@ -36,7 +36,7 @@ export class EmprestimoDetalhesComponent implements OnInit {
     };
   }
 
-  alterar() {
+  alterar(): void {
     this.router.navigate([`/emprestimos/editar/${this.emprestimo.id}`]);
   }
 

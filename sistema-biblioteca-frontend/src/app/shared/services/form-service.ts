@@ -58,6 +58,15 @@ export class FormService implements ICanDeactivate {
       });
   }
 
+  criarObjeto(campos: string[]): any {
+    campos.forEach(campo => {
+      this.form.get(campo)?.patchValue({
+        id: this.form.get(campo)?.value
+      });
+    });
+    return this.form.value;
+  }
+
   desativarRota(): boolean {
     return (this.alterado)
       ? confirm('Tem certeza que deseja sair? As alterações serão perdidas.')

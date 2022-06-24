@@ -121,12 +121,13 @@ export class ClienteListaComponent implements OnInit {
         .subscribe({
           complete: () => {
             this.modalExclusao.poModal.close();
-            this.poNotification.success('Cliente removido com sucesso!')
+            this.poNotification.success('Cliente removido com sucesso!');
             this.atualizarLista();
           }
         });
+    } else {
+      this.modalExclusao.poModal.close();
     }
-    this.modalExclusao.poModal.close();
   }
 
   visualizar(item: any): void {

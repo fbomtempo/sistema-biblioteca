@@ -1,64 +1,66 @@
-<div class="po-text-center po-font-display po-pb-5">
-  Bem-vindo de volta, usuário(a)!
-</div>
-<div class="po-row po-pt-2">
-  <po-container class="po-xl-7 po-lg-12 po-md-12 po-sm-12" [p-height]="480">
-    <div class="po-text-center">
-      <div class="po-font-text-large-bold po-font-text-uppercase">
-        Total de Empréstimos
-      </div>
-      <po-chart
-        class="po-md-12 po-mt-2"
-        [p-options]="opcoesColunas"
-        [p-categories]="colunas"
-        [p-series]="totalEmprestimosMensal"
-      >
-      </po-chart>
-    </div>
-  </po-container>
-  <po-container class="po-xl-5 po-lg-12 po-md-12 po-sm-12 po-pt-lg-0 po-pt-3" [p-height]="480">
-    <div class="po-text-center">
-      <div class="po-font-text-large-bold po-font-text-uppercase ">
-        Calendário
-      </div>
-      <div class="po-pt-5" style="display: flex; justify-content: center;">
-        <po-calendar
-          p-locale="pt"
-          [p-mode]="modo"
+<div *ngIf="paginaCarregada; else telaErro">
+  <div class="po-text-center po-font-display po-pb-5">
+    Bem-vindo de volta, usuário(a)!
+  </div>
+  <div class="po-row po-pt-2">
+    <po-container class="po-xl-7 po-lg-12 po-md-12 po-sm-12" [p-height]="480">
+      <div class="po-text-center">
+        <div class="po-font-text-large-bold po-font-text-uppercase">
+          Total de Empréstimos
+        </div>
+        <po-chart
+          class="po-md-12 po-mt-2"
+          [p-options]="opcoesColunas"
+          [p-categories]="colunas"
+          [p-series]="totalEmprestimosMensal"
         >
-        </po-calendar>
+        </po-chart>
       </div>
-    </div>
-  </po-container>
-</div>
-<div class="po-row">
-  <po-container class="po-md-12 po-sm-12 po-pt-2">
-    <div class="po-text-center">
-      <div class="po-font-text-large-bold po-font-text-uppercase ">
-        Lembretes
-        <po-button
-          class="po-pl-1"
-          p-label="Adicionar"
-          p-kind="secondary"
-          [p-small]="true"
-          (p-click)="abrirModal()"
+    </po-container>
+    <po-container class="po-xl-5 po-lg-12 po-md-12 po-sm-12 po-pt-lg-0 po-pt-3" [p-height]="480">
+      <div class="po-text-center">
+        <div class="po-font-text-large-bold po-font-text-uppercase ">
+          Calendário
+        </div>
+        <div class="po-pt-5" style="display: flex; justify-content: center;">
+          <po-calendar
+            p-locale="pt"
+            [p-mode]="modo"
+          >
+          </po-calendar>
+        </div>
+      </div>
+    </po-container>
+  </div>
+  <div class="po-row">
+    <po-container class="po-md-12 po-sm-12 po-pt-2">
+      <div class="po-text-center">
+        <div class="po-font-text-large-bold po-font-text-uppercase ">
+          Lembretes
+          <po-button
+            class="po-pl-1"
+            p-label="Adicionar"
+            p-kind="secondary"
+            [p-small]="true"
+            (p-click)="abrirModal()"
+          >
+          </po-button>
+        </div>
+      </div>
+      <div class="po-row">
+        <po-widget *ngFor="let lembrete of lembretes"
+          #lembrete
+          class="po-md-12 po-lg-4 po-sm-6 po-mt-2"
+          [p-title]='lembrete.titulo'
+          p-primary-label="Remover"
+          (p-primary-action)="removerLembrete(lembrete)"
         >
-        </po-button>
+          <div class="po-font-subtitle po-text-center">{{ lembrete.conteudoPrincipal }}</div>
+          <div class="po-text-center">{{ lembrete.conteudoSecundario }}</div>
+        </po-widget>
       </div>
-    </div>
-    <div class="po-row">
-      <po-widget *ngFor="let lembrete of lembretes"
-        #lembrete
-        class="po-md-12 po-lg-4 po-sm-6 po-mt-2"
-        [p-title]='lembrete.titulo'
-        p-primary-label="Remover"
-        (p-primary-action)="removerLembrete(lembrete)"
-      >
-        <div class="po-font-subtitle po-text-center">{{ lembrete.conteudoPrincipal }}</div>
-        <div class="po-text-center">{{ lembrete.conteudoSecundario }}</div>
-      </po-widget>
-    </div>
-  </po-container>
+    </po-container>
+  </div>
 </div>
 
 <!-- MODAIS -->
@@ -98,3 +100,14 @@
     </div>
   </form>
 </po-modal>
+
+<!-- TEMPLATES -->
+
+<ng-template #telaErro>
+  <div *ngIf="erro; else telaCarregamento">
+    <app-erro-server></app-erro-server>
+  </div>
+</ng-template>
+
+<ng-template #telaCarregamento></ng-template>
+

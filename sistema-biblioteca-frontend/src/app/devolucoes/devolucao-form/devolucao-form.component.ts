@@ -93,13 +93,13 @@ export class DevolucaoFormComponent extends FormService implements OnInit, OnDes
 
   salvar(): void {
     if (this.form.valid) {
-      const devolucao: Devolucao = this.criarObjeto();
+      const devolucao: Devolucao = this.criarObjeto(['emprestimo']);
       if (!this.route.snapshot.params['id']) {
         this.devolucaoService.inserir(devolucao).subscribe({
           complete: () => {
             this.form.reset();
             this.alterado = false;
-            this.poNotification.success('Devolução cadastrada com sucesso!')
+            this.poNotification.success('Devolução cadastrada com sucesso!');
             this.router.navigate(['devolucoes']);
           }
         });
@@ -108,18 +108,11 @@ export class DevolucaoFormComponent extends FormService implements OnInit, OnDes
           complete: () => {
             this.form.reset();
             this.alterado = false;
-            this.poNotification.success('Devolução alterada com sucesso!')
+            this.poNotification.success('Devolução alterada com sucesso!');
             this.router.navigate(['devolucoes']);
           }
         });
       }
     }
-  }
-
-  private criarObjeto() {
-    this.form.get('emprestimo')?.patchValue({
-      id: this.form.get('emprestimo')?.value
-    });
-    return this.form.value;
   }
 }

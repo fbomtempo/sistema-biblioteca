@@ -27,7 +27,7 @@ export class DevolucaoDetalhesComponent implements OnInit {
     return devolucao;
   }
 
-  alterar() {
+  alterar(): void {
     this.router.navigate([`/devolucoes/editar/${this.devolucao.id}`]);
   }
 

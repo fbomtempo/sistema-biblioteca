@@ -117,13 +117,13 @@ export class EmprestimoFormComponent extends FormService implements OnInit, OnDe
 
   salvar(): void {
     if (this.form.valid) {
-      const emprestimo: Emprestimo = this.criarObjeto();
+      const emprestimo: Emprestimo = this.criarObjeto(['cliente', 'livro']);
       if (!this.route.snapshot.params['id']) {
         this.emprestimoService.inserir(emprestimo).subscribe({
           complete: () => {
             this.form.reset();
             this.alterado = false;
-            this.poNotification.success('Empréstimo cadastrado com sucesso!')
+            this.poNotification.success('Empréstimo cadastrado com sucesso!');
             this.router.navigate(['emprestimos']);
           }
         });
@@ -132,21 +132,11 @@ export class EmprestimoFormComponent extends FormService implements OnInit, OnDe
           complete: () => {
             this.form.reset();
             this.alterado = false;
-            this.poNotification.success('Empréstimo alterado com sucesso!')
+            this.poNotification.success('Empréstimo alterado com sucesso!');
             this.router.navigate(['emprestimos']);
           }
         });
       }
     }
-  }
-
-  private criarObjeto() {
-    this.form.get('cliente')?.patchValue({
-      id: this.form.get('cliente')?.value
-    });
-    this.form.get('livro')?.patchValue({
-      id: this.form.get('livro')?.value
-    });
-    return this.form.value;
   }
 }

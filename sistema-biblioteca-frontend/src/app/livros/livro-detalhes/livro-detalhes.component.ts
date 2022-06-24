@@ -36,7 +36,7 @@ export class LivroDetalhesComponent implements OnInit {
     };
   }
 
-  alterar() {
+  alterar(): void {
     this.router.navigate([`/livros/editar/${this.livro.id}`]);
   }
 

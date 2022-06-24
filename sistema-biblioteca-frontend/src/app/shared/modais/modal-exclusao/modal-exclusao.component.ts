@@ -20,13 +20,12 @@ export class ModalExclusaoComponent implements OnInit {
           resposta: true
         });
     },
-    label: 'Sim',
+    label: 'Sim'
   };
   acaoSecundaria: PoModalAction = {
     action: () => {
       this.evento.emit(
         {
-          obj: this.obj,
           resposta: false
         });
     },

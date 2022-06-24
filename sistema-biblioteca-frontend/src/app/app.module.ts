@@ -5,10 +5,12 @@ import { PoModule } from '@po-ui/ng-components';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { NaoEncontradoComponent } from './nao-encontrado/nao-encontrado.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    NaoEncontradoComponent
   ],
   imports: [
     BrowserModule,

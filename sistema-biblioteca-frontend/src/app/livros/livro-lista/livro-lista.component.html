@@ -1,4 +1,4 @@
-<div *ngIf="livros$ | async as livros; else errorScreen">
+<div *ngIf="livros$ | async as livros; else telaErro">
   <div class="po-sm-12 po-md-12 po-font-display po-text-center po-pb-4">
     Cadastro de Livros
   </div>
@@ -40,7 +40,6 @@
 </div>
 
 <!-- MODAIS -->
-
 <modal-exclusao
   #modal
   (evento)="deletar($event)"
@@ -48,12 +47,13 @@
 </modal-exclusao>
 
 <!-- TEMPLATES -->
-
-<ng-template #errorScreen>
-  <div *ngIf="error | async; else loadingScreen"></div>
+<ng-template #telaErro>
+  <div *ngIf="error | async; else telaCarregamento">
+    <app-erro-server></app-erro-server>
+  </div>
 </ng-template>
 
-<ng-template #loadingScreen>
+<ng-template #telaCarregamento>
   <po-loading-overlay
     [p-screen-lock]="true"
     p-text="Carregando..."

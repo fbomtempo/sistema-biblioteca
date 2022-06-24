@@ -69,7 +69,7 @@ export class ClienteFormComponent extends FormService implements OnInit, OnDestr
           complete: () => {
             this.form.reset();
             this.alterado = false;
-            this.poNotification.success('Cliente cadastrado com sucesso!')
+            this.poNotification.success('Cliente cadastrado com sucesso!');
             this.router.navigate(['clientes']);
           }
         });
@@ -78,7 +78,7 @@ export class ClienteFormComponent extends FormService implements OnInit, OnDestr
           complete: () => {
             this.form.reset();
             this.alterado = false;
-            this.poNotification.success('Cliente alterado com sucesso!')
+            this.poNotification.success('Cliente alterado com sucesso!');
             this.router.navigate(['clientes']);
           }
         });
