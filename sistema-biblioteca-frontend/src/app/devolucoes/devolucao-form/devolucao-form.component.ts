@@ -73,8 +73,9 @@ export class DevolucaoFormComponent extends FormService implements OnInit, OnDes
             .filter(emprestimo => emprestimo.situacaoEmprestimo != SituacaoEmprestimo.FINALIZADO || emprestimo.id === devolucao.emprestimo?.id)
             .map(emprestimo => {
               return {
-                label: emprestimo.cliente.nome,
-                value: emprestimo.id
+                label:
+                  emprestimo.cliente.nome + ' | ' + emprestimo.livro.titulo,
+                value: emprestimo.id,
               };
             });
         })
